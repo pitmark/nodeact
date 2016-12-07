@@ -15,6 +15,10 @@ switch (req.url) {
       nowdir = 'home';
     break;
 
+    case '/about':
+      nowdir = 'about';
+    break;
+
     default:
       nowdir = '404';
     break;
@@ -25,6 +29,11 @@ if ( req.url.match(/.css/)) {
     cssfile = req.url;
 }
 
+if ( req.url.match(/.js/)) {
+    nowdir = "js";
+    jsfile = req.url;
+}
+
 console.log(nowdir);
   if(nowdir != "css" && nowdir != "js"){
   fs.readFile(__dirname + '/views/'+nowdir+'.html', 'utf-8', function(err, data){
@@ -32,9 +41,15 @@ console.log(nowdir);
     res.write(header_data + data + footer_data);
     res.end();
   });
-  }else{
+  }else if(nowdir == "css"){
   fs.readFile(__dirname +'/public_html'+ cssfile , 'utf-8', function(err, data){
     res.writeHead(200, {'Content-Type': 'text/css'});　//CSSファイルなんでCSS
+    res.write(data);
+    res.end();
+  });
+  }else if(nowdir == "js"){
+  fs.readFile(__dirname +'/public_html'+ jsfile , 'utf-8', function(err, data){
+    res.writeHead(200, {'Content-Type': 'text/plain'});　//JSファイルなんでplain
     res.write(data);
     res.end();
   });
