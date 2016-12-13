@@ -27,262 +27,368 @@ var nowdir = location.pathname;
 var nowdirs = nowdir.split('/');
 
 if (nowdirs[1] == "") {
-  nowdirs[1] = "home";
+    nowdirs[1] = "home";
 }
 
 var Testtest = function (_React$Component) {
-  _inherits(Testtest, _React$Component);
+    _inherits(Testtest, _React$Component);
 
-  function Testtest() {
-    _classCallCheck(this, Testtest);
+    function Testtest() {
+        _classCallCheck(this, Testtest);
 
-    return _possibleConstructorReturn(this, (Testtest.__proto__ || Object.getPrototypeOf(Testtest)).apply(this, arguments));
-  }
-
-  _createClass(Testtest, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        'testtest'
-      );
+        return _possibleConstructorReturn(this, (Testtest.__proto__ || Object.getPrototypeOf(Testtest)).apply(this, arguments));
     }
-  }]);
 
-  return Testtest;
+    _createClass(Testtest, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                'testtest'
+            );
+        }
+    }]);
+
+    return Testtest;
 }(_react2.default.Component);
 
 var App = function (_React$Component2) {
-  _inherits(App, _React$Component2);
+    _inherits(App, _React$Component2);
 
-  function App() {
-    _classCallCheck(this, App);
+    function App() {
+        _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-  }
-
-  _createClass(App, [{
-    key: 'formSubmit2',
-    value: function formSubmit2() {
-      var input = this.refs.ref.value.trim();
-      console.log(input);
+        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(Testtest, null);
-    }
-  }]);
 
-  return App;
+    _createClass(App, [{
+        key: 'formSubmit2',
+        value: function formSubmit2() {
+            var input = this.refs.ref.value.trim();
+            console.log(input);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(Testtest, null);
+        }
+    }]);
+
+    return App;
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('content_' + nowdirs[1]));
 
-var FormArea = function (_React$Component3) {
-  _inherits(FormArea, _React$Component3);
+var Form1 = function (_React$Component3) {
+    _inherits(Form1, _React$Component3);
 
-  function FormArea(props) {
-    _classCallCheck(this, FormArea);
+    function Form1() {
+        _classCallCheck(this, Form1);
 
-    var _this3 = _possibleConstructorReturn(this, (FormArea.__proto__ || Object.getPrototypeOf(FormArea)).call(this, props));
-
-    _this3.state = {};
-    return _this3;
-  }
-
-  _createClass(FormArea, [{
-    key: 'formSubmit',
-    value: function formSubmit(e) {
-      e.preventDefault();
-      // var input = this.refs.ref.value.trim();
-      //console.log(input);
-      // if(e.keyCode == 13)
-      //   return false;
-
-      this.dataPost(this.state);
+        return _possibleConstructorReturn(this, (Form1.__proto__ || Object.getPrototypeOf(Form1)).apply(this, arguments));
     }
-  }, {
-    key: 'dataPost',
-    value: function dataPost(data) {
-      console.log(data);
-      _jquery2.default.ajax({
-        url: "/login",
-        dataType: 'json',
-        type: 'POST',
-        data: JSON.stringify(this.state),
-        success: function (data) {
-          //this.setState({status: login});
-          console.log(data);
-          alert(data);
-        }.bind(this),
-        error: function (xhr, status, err) {
-          //console.error(this.props.url, status, err.toString());
-          console.error("サーバー接続エラー");
-        }.bind(this)
-      });
-    }
-  }, {
-    key: 'formChange',
-    value: function formChange(e) {
-      var key = e.target.name;
-      var h = hash(key, e.target.value);
 
-      this.setState(h);
+    _createClass(Form1, [{
+        key: 'onChangeText',
+        value: function onChangeText(e) {
+            //  this.setState({data:e.target.value}); 
+            var err = (0, _reactDom.findDOMNode)(this.refs.userid).value;
+            console.log(test);
+        }
+    }, {
+        key: '_getuserid',
+        value: function _getuserid() {
+            return this.state;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                null,
+                _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', name: 'userid', onChange: this.onChangeText.bind(this), ref: 'userid' }),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    this.err
+                )
+            );
+        }
+    }]);
 
-      function hash(key, value) {
-        var h = {};h[key] = value;return h;
-      }
-
-      return false;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactBootstrap.FormGroup,
-          null,
-          _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', name: 'userid', onBlur: this.formChange.bind(this) })
-        ),
-        _react2.default.createElement(
-          _reactBootstrap.FormGroup,
-          null,
-          _react2.default.createElement(_reactBootstrap.FormControl, { type: 'password', name: 'password', onBlur: this.formChange.bind(this) })
-        ),
-        _react2.default.createElement(
-          _reactBootstrap.FormGroup,
-          null,
-          _react2.default.createElement(
-            _reactBootstrap.Button,
-            { bsStyle: 'primary', bsSize: 'large', onClick: this.formSubmit.bind(this), block: true },
-            '\u9001\u4FE1'
-          )
-        )
-      );
-    }
-  }]);
-
-  return FormArea;
+    return Form1;
 }(_react2.default.Component);
 
-var Header = function (_React$Component4) {
-  _inherits(Header, _React$Component4);
+var Form2 = function (_React$Component4) {
+    _inherits(Form2, _React$Component4);
 
-  function Header(props, context) {
-    _classCallCheck(this, Header);
+    function Form2() {
+        _classCallCheck(this, Form2);
 
-    var _this4 = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props, context));
-
-    _this4.state = {
-      showModal: false
-    };
-
-    _this4.open = _this4.open.bind(_this4);
-    _this4.close = _this4.close.bind(_this4);
-    return _this4;
-  }
-
-  _createClass(Header, [{
-    key: 'open',
-    value: function open() {
-      this.setState({ showModal: true });
+        return _possibleConstructorReturn(this, (Form2.__proto__ || Object.getPrototypeOf(Form2)).apply(this, arguments));
     }
-  }, {
-    key: 'close',
-    value: function close() {
-      this.setState({ showModal: false });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactBootstrap.Navbar,
-          null,
-          _react2.default.createElement(
-            _reactBootstrap.Navbar.Header,
-            null,
-            _react2.default.createElement(
-              _reactBootstrap.Navbar.Brand,
-              null,
-              _react2.default.createElement(
-                'a',
-                { href: '/' },
-                'React-Bootstrap Sample'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Nav,
-            { pullRight: true },
-            _react2.default.createElement(
-              _reactBootstrap.NavDropdown,
-              { id: 'my-dropdown', title: 'Settings', eventKey: 1, onSelect: this.handleChange },
-              _react2.default.createElement(
-                _reactBootstrap.MenuItem,
-                { eventKey: 1.1 },
-                'About'
-              ),
-              _react2.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
-              _react2.default.createElement(
-                _reactBootstrap.MenuItem,
-                { eventKey: 1.2 },
-                _react2.default.createElement(
-                  'div',
-                  { onClick: this.open },
-                  '\u30ED\u30B0\u30A4\u30F3'
-                )
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          _reactBootstrap.Modal,
-          { className: 'modal-container',
-            show: this.state.showModal,
-            onHide: this.close,
-            animation: true,
-            bsSize: 'small' },
-          _react2.default.createElement(
-            'form',
-            { id: 'myForm', className: '' },
-            _react2.default.createElement(
-              _reactBootstrap.Modal.Header,
-              { closeButton: true },
-              _react2.default.createElement(
-                _reactBootstrap.Modal.Title,
+    _createClass(Form2, [{
+        key: 'onChangeText',
+        value: function onChangeText(e) {
+            this.setState({ data: e.target.value });
+        }
+    }, {
+        key: '_getpassword',
+        value: function _getpassword() {
+            return this.state;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactBootstrap.FormGroup,
                 null,
-                '\u30ED\u30B0\u30A4\u30F3\u30D5\u30A9\u30FC\u30E0'
-              )
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.Modal.Body,
-              null,
-              _react2.default.createElement(FormArea, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.Modal.Footer,
-              null,
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { onClick: this.close },
-                'Close'
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
+                _react2.default.createElement(_reactBootstrap.FormControl, { type: 'password', name: 'password', onChange: this.onChangeText.bind(this), ref: 'password' }),
+                _react2.default.createElement('p', null)
+            );
+        }
+    }]);
 
-  return Header;
+    return Form2;
+}(_react2.default.Component);
+
+var ModalArea = function (_React$Component5) {
+    _inherits(ModalArea, _React$Component5);
+
+    function ModalArea(props, context) {
+        _classCallCheck(this, ModalArea);
+
+        var _this5 = _possibleConstructorReturn(this, (ModalArea.__proto__ || Object.getPrototypeOf(ModalArea)).call(this, props, context));
+
+        _this5.state = {
+            data: {
+                userid: null,
+                password: null
+            },
+            message: {
+                userid: null,
+                password: null
+            },
+            showModal: false
+        };
+
+        _this5.open = _this5.open.bind(_this5);
+        _this5.close = _this5.close.bind(_this5);
+        return _this5;
+    }
+
+    _createClass(ModalArea, [{
+        key: 'open',
+        value: function open() {
+            this.setState({ showModal: true });
+        }
+    }, {
+        key: 'close',
+        value: function close() {
+            this.setState({ showModal: false });
+        }
+    }, {
+        key: 'validate',
+        value: function validate(str, type) {
+            switch (type) {
+                case "userid":
+                    if (str == null || str == "") {
+                        this.state.message.userid = "文字を入力して下さい";
+                        console.log(this.state);
+                    } else if (str.match(/[^A-Za-z0-9]+/)) {
+                        this.state.message.userid = "半角英数のみ入力して下さい";
+                    } else {
+                        this.state.message.userid = "";
+                    }
+                    break;
+
+                case "password":
+                    if (str == null || str == "") {
+                        this.state.message.password = "文字を入力して下さい";
+                    } else if (str.match(/[^A-Za-z0-9]+/)) {
+                        this.state.message.password = "半角英数のみ入力して下さい";
+                    } else {
+                        this.state.message.password = "";
+                    }
+                    break;
+            }
+        }
+    }, {
+        key: 'formSubmit',
+        value: function formSubmit(e) {
+            e.preventDefault();
+            var userid = (0, _reactDom.findDOMNode)(this.refs.userid).value;
+            var password = (0, _reactDom.findDOMNode)(this.refs.password).value;
+
+            this.validate(userid, "userid");
+            this.validate(password, "password");
+
+            this.state = {
+                data: { userid: userid, password: password },
+                message: { userid: this.state.message.userid, password: this.state.message.password }
+            };
+
+            var p_userid = (0, _reactDom.findDOMNode)(this.refs.userid_err);
+            p_userid.textContent = this.state.message.userid;
+            p_userid.setAttribute('style', 'color:red;');
+
+            var p_password = (0, _reactDom.findDOMNode)(this.refs.password_err);
+            p_password.textContent = this.state.message.password;
+            p_password.setAttribute('style', 'color:red;');
+
+            //送信
+            // this.dataPost(this.state.data);
+        }
+    }, {
+        key: 'dataPost',
+        value: function dataPost(data) {
+            _jquery2.default.ajax({
+                url: "/login",
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success: function (data) {
+                    var str = JSON.stringify(data);
+                    this.state = data;
+                    console.log(this.state);
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                    console.error("サーバー接続エラー");
+                }.bind(this)
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactBootstrap.Modal,
+                { className: 'modal-container',
+                    show: this.state.showModal,
+                    onHide: this.close,
+                    animation: true,
+                    bsSize: 'small' },
+                _react2.default.createElement(
+                    _reactBootstrap.Modal.Header,
+                    { closeButton: true },
+                    _react2.default.createElement(
+                        _reactBootstrap.Modal.Title,
+                        null,
+                        '\u30ED\u30B0\u30A4\u30F3\u30D5\u30A9\u30FC\u30E0'
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactBootstrap.Modal.Body,
+                    null,
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactBootstrap.FormGroup,
+                            null,
+                            _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', name: 'userid', ref: 'userid', required: true }),
+                            _react2.default.createElement('p', { ref: 'userid_err' })
+                        ),
+                        _react2.default.createElement(
+                            _reactBootstrap.FormGroup,
+                            null,
+                            _react2.default.createElement(_reactBootstrap.FormControl, { type: 'password', name: 'password', ref: 'password', required: true }),
+                            _react2.default.createElement('p', { ref: 'password_err' })
+                        ),
+                        _react2.default.createElement(
+                            _reactBootstrap.FormGroup,
+                            null,
+                            _react2.default.createElement(
+                                _reactBootstrap.Button,
+                                { bsStyle: 'primary', bsSize: 'large', type: 'submit', onClick: this.formSubmit.bind(this), block: true },
+                                '\u9001\u4FE1'
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactBootstrap.Modal.Footer,
+                    null,
+                    _react2.default.createElement(
+                        _reactBootstrap.Button,
+                        { onClick: this.close },
+                        'Close'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ModalArea;
+}(_react2.default.Component);
+
+var Header = function (_React$Component6) {
+    _inherits(Header, _React$Component6);
+
+    function Header() {
+        _classCallCheck(this, Header);
+
+        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+    }
+
+    _createClass(Header, [{
+        key: 'render',
+        value: function render() {
+            var _this7 = this;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _reactBootstrap.Navbar,
+                    null,
+                    _react2.default.createElement(
+                        _reactBootstrap.Navbar.Header,
+                        null,
+                        _react2.default.createElement(
+                            _reactBootstrap.Navbar.Brand,
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { href: '/' },
+                                'React-Bootstrap Sample'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactBootstrap.Nav,
+                        { pullRight: true },
+                        _react2.default.createElement(
+                            _reactBootstrap.NavDropdown,
+                            { id: 'my-dropdown', title: 'Settings', eventKey: 1, onSelect: this.handleChange },
+                            _react2.default.createElement(
+                                _reactBootstrap.MenuItem,
+                                { eventKey: 1.1 },
+                                'About'
+                            ),
+                            _react2.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
+                            _react2.default.createElement(
+                                _reactBootstrap.MenuItem,
+                                { eventKey: 1.2 },
+                                _react2.default.createElement(
+                                    'div',
+                                    { onClick: function onClick() {
+                                            return _this7.refs.child.open();
+                                        } },
+                                    '\u30ED\u30B0\u30A4\u30F3'
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(ModalArea, { ref: 'child' })
+            );
+        }
+    }]);
+
+    return Header;
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(Header, null), document.getElementById('header'));
