@@ -30,16 +30,24 @@ if (nowdirs[1] == "") {
     nowdirs[1] = "home";
 }
 
-var Testtest = function (_React$Component) {
-    _inherits(Testtest, _React$Component);
+var dir_arr = ["home", "item", "logout"];
+if (dir_arr.indexOf(nowdirs[1]) == -1) {
+    nowdirs[1] = "notfound";
+}
 
-    function Testtest() {
-        _classCallCheck(this, Testtest);
+var Home = function (_React$Component) {
+    _inherits(Home, _React$Component);
 
-        return _possibleConstructorReturn(this, (Testtest.__proto__ || Object.getPrototypeOf(Testtest)).apply(this, arguments));
+    function Home(props) {
+        _classCallCheck(this, Home);
+
+        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+        console.log(window.sessionStorage.getItem(['session']));
+        return _this;
     }
 
-    _createClass(Testtest, [{
+    _createClass(Home, [{
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -50,11 +58,102 @@ var Testtest = function (_React$Component) {
         }
     }]);
 
-    return Testtest;
+    return Home;
 }(_react2.default.Component);
 
-var App = function (_React$Component2) {
-    _inherits(App, _React$Component2);
+var Item = function (_React$Component2) {
+    _inherits(Item, _React$Component2);
+
+    function Item(props) {
+        _classCallCheck(this, Item);
+
+        var _this2 = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+
+        console.log(window.sessionStorage.getItem(['session']));
+        return _this2;
+    }
+
+    _createClass(Item, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var data = window.document.getElementById("data").innerHTML;
+            var json_data = JSON.parse(data);
+            console.log(json_data);
+            json_data = json_data.data;
+            var txt = "";
+            for (var i in json_data) {
+                txt += json_data[i].maisuu + "枚" + json_data[i].price + "円";
+            }
+            console.log(txt);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                'item'
+            );
+        }
+    }]);
+
+    return Item;
+}(_react2.default.Component);
+
+var Logout = function (_React$Component3) {
+    _inherits(Logout, _React$Component3);
+
+    function Logout(props) {
+        _classCallCheck(this, Logout);
+
+        var _this3 = _possibleConstructorReturn(this, (Logout.__proto__ || Object.getPrototypeOf(Logout)).call(this, props));
+
+        window.sessionStorage.clear();
+        return _this3;
+    }
+
+    _createClass(Logout, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                'logout\u3057\u307E\u3057\u305F\u3002'
+            );
+        }
+    }]);
+
+    return Logout;
+}(_react2.default.Component);
+
+var Notfound = function (_React$Component4) {
+    _inherits(Notfound, _React$Component4);
+
+    function Notfound(props) {
+        _classCallCheck(this, Notfound);
+
+        var _this4 = _possibleConstructorReturn(this, (Notfound.__proto__ || Object.getPrototypeOf(Notfound)).call(this, props));
+
+        console.log(window.sessionStorage.getItem(['session']));
+        return _this4;
+    }
+
+    _createClass(Notfound, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                '404'
+            );
+        }
+    }]);
+
+    return Notfound;
+}(_react2.default.Component);
+
+var App = function (_React$Component5) {
+    _inherits(App, _React$Component5);
 
     function App() {
         _classCallCheck(this, App);
@@ -63,15 +162,23 @@ var App = function (_React$Component2) {
     }
 
     _createClass(App, [{
-        key: 'formSubmit2',
-        value: function formSubmit2() {
-            var input = this.refs.ref.value.trim();
-            console.log(input);
-        }
-    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(Testtest, null);
+
+            switch (nowdirs[1]) {
+                case "home":
+                    return _react2.default.createElement(Home, null);
+                    break;
+
+                case "item":
+                    return _react2.default.createElement(Item, null);
+                    break;
+                case "logout":
+                    return _react2.default.createElement(Logout, null);
+                    break;
+                default:
+                    return _react2.default.createElement(Notfound, null);
+            }
         }
     }]);
 
@@ -80,89 +187,15 @@ var App = function (_React$Component2) {
 
 (0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('content_' + nowdirs[1]));
 
-var Form1 = function (_React$Component3) {
-    _inherits(Form1, _React$Component3);
-
-    function Form1() {
-        _classCallCheck(this, Form1);
-
-        return _possibleConstructorReturn(this, (Form1.__proto__ || Object.getPrototypeOf(Form1)).apply(this, arguments));
-    }
-
-    _createClass(Form1, [{
-        key: 'onChangeText',
-        value: function onChangeText(e) {
-            //  this.setState({data:e.target.value}); 
-            var err = (0, _reactDom.findDOMNode)(this.refs.userid).value;
-            console.log(test);
-        }
-    }, {
-        key: '_getuserid',
-        value: function _getuserid() {
-            return this.state;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _reactBootstrap.FormGroup,
-                null,
-                _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', name: 'userid', onChange: this.onChangeText.bind(this), ref: 'userid' }),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    this.err
-                )
-            );
-        }
-    }]);
-
-    return Form1;
-}(_react2.default.Component);
-
-var Form2 = function (_React$Component4) {
-    _inherits(Form2, _React$Component4);
-
-    function Form2() {
-        _classCallCheck(this, Form2);
-
-        return _possibleConstructorReturn(this, (Form2.__proto__ || Object.getPrototypeOf(Form2)).apply(this, arguments));
-    }
-
-    _createClass(Form2, [{
-        key: 'onChangeText',
-        value: function onChangeText(e) {
-            this.setState({ data: e.target.value });
-        }
-    }, {
-        key: '_getpassword',
-        value: function _getpassword() {
-            return this.state;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _reactBootstrap.FormGroup,
-                null,
-                _react2.default.createElement(_reactBootstrap.FormControl, { type: 'password', name: 'password', onChange: this.onChangeText.bind(this), ref: 'password' }),
-                _react2.default.createElement('p', null)
-            );
-        }
-    }]);
-
-    return Form2;
-}(_react2.default.Component);
-
-var ModalArea = function (_React$Component5) {
-    _inherits(ModalArea, _React$Component5);
+var ModalArea = function (_React$Component6) {
+    _inherits(ModalArea, _React$Component6);
 
     function ModalArea(props, context) {
         _classCallCheck(this, ModalArea);
 
-        var _this5 = _possibleConstructorReturn(this, (ModalArea.__proto__ || Object.getPrototypeOf(ModalArea)).call(this, props, context));
+        var _this6 = _possibleConstructorReturn(this, (ModalArea.__proto__ || Object.getPrototypeOf(ModalArea)).call(this, props, context));
 
-        _this5.state = {
+        _this6.state = {
             data: {
                 userid: null,
                 password: null
@@ -171,12 +204,13 @@ var ModalArea = function (_React$Component5) {
                 userid: null,
                 password: null
             },
+            err: false,
             showModal: false
         };
 
-        _this5.open = _this5.open.bind(_this5);
-        _this5.close = _this5.close.bind(_this5);
-        return _this5;
+        _this6.open = _this6.open.bind(_this6);
+        _this6.close = _this6.close.bind(_this6);
+        return _this6;
     }
 
     _createClass(ModalArea, [{
@@ -196,7 +230,6 @@ var ModalArea = function (_React$Component5) {
                 case "userid":
                     if (str == null || str == "") {
                         this.state.message.userid = "文字を入力して下さい";
-                        console.log(this.state);
                     } else if (str.match(/[^A-Za-z0-9]+/)) {
                         this.state.message.userid = "半角英数のみ入力して下さい";
                     } else {
@@ -230,6 +263,16 @@ var ModalArea = function (_React$Component5) {
                 message: { userid: this.state.message.userid, password: this.state.message.password }
             };
 
+            if (this.state.message.userid == "" && this.state.message.password == "") {
+                // 送信
+                this.dataPost(this.state.data);
+            } else {
+                var p_send = (0, _reactDom.findDOMNode)(this.refs.send_err);
+                p_send.textContent = " ";
+                p_send.setAttribute('style', 'color:red;');
+            }
+
+            console.log(this.state);
             var p_userid = (0, _reactDom.findDOMNode)(this.refs.userid_err);
             p_userid.textContent = this.state.message.userid;
             p_userid.setAttribute('style', 'color:red;');
@@ -237,9 +280,6 @@ var ModalArea = function (_React$Component5) {
             var p_password = (0, _reactDom.findDOMNode)(this.refs.password_err);
             p_password.textContent = this.state.message.password;
             p_password.setAttribute('style', 'color:red;');
-
-            //送信
-            // this.dataPost(this.state.data);
         }
     }, {
         key: 'dataPost',
@@ -247,12 +287,23 @@ var ModalArea = function (_React$Component5) {
             _jquery2.default.ajax({
                 url: "/login",
                 type: 'POST',
-                dataType: 'json',
+                //ataType: 'json',
                 data: JSON.stringify(data),
                 success: function (data) {
-                    var str = JSON.stringify(data);
-                    this.state = data;
-                    console.log(this.state);
+                    var str = data;
+                    //this.state = data;
+                    console.log(data);
+                    if (data != 0) {
+                        window.sessionStorage.setItem(['session'], [data]);
+                        // location.href = "/";
+                    } else {
+                        this.state.message.send = "err";
+                        this.state.showModal = true;
+                        this.setState(this.state);
+                        var p_send = (0, _reactDom.findDOMNode)(this.refs.send_err);
+                        p_send.textContent = "ID・PASSに間違いがあります";
+                        p_send.setAttribute('style', 'color:red;');
+                    }
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.error(this.props.url, status, err.toString());
@@ -288,13 +339,13 @@ var ModalArea = function (_React$Component5) {
                         _react2.default.createElement(
                             _reactBootstrap.FormGroup,
                             null,
-                            _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', name: 'userid', ref: 'userid', required: true }),
+                            _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', name: 'userid', ref: 'userid' }),
                             _react2.default.createElement('p', { ref: 'userid_err' })
                         ),
                         _react2.default.createElement(
                             _reactBootstrap.FormGroup,
                             null,
-                            _react2.default.createElement(_reactBootstrap.FormControl, { type: 'password', name: 'password', ref: 'password', required: true }),
+                            _react2.default.createElement(_reactBootstrap.FormControl, { type: 'password', name: 'password', ref: 'password' }),
                             _react2.default.createElement('p', { ref: 'password_err' })
                         ),
                         _react2.default.createElement(
@@ -304,7 +355,8 @@ var ModalArea = function (_React$Component5) {
                                 _reactBootstrap.Button,
                                 { bsStyle: 'primary', bsSize: 'large', type: 'submit', onClick: this.formSubmit.bind(this), block: true },
                                 '\u9001\u4FE1'
-                            )
+                            ),
+                            _react2.default.createElement('p', { ref: 'send_err' })
                         )
                     )
                 ),
@@ -324,8 +376,8 @@ var ModalArea = function (_React$Component5) {
     return ModalArea;
 }(_react2.default.Component);
 
-var Header = function (_React$Component6) {
-    _inherits(Header, _React$Component6);
+var Header = function (_React$Component7) {
+    _inherits(Header, _React$Component7);
 
     function Header() {
         _classCallCheck(this, Header);
@@ -336,7 +388,7 @@ var Header = function (_React$Component6) {
     _createClass(Header, [{
         key: 'render',
         value: function render() {
-            var _this7 = this;
+            var _this8 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -375,7 +427,7 @@ var Header = function (_React$Component6) {
                                 _react2.default.createElement(
                                     'div',
                                     { onClick: function onClick() {
-                                            return _this7.refs.child.open();
+                                            return _this8.refs.child.open();
                                         } },
                                     '\u30ED\u30B0\u30A4\u30F3'
                                 )
